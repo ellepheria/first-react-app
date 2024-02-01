@@ -11,29 +11,38 @@ function App() {
         {id: 3, title: 'JavaScript 3', body: 'Javascript - язык программирования'}
     ])
     const [title, setTitle] = useState('');
-    const bodyInputRef = useRef();
+    const [body, setBody] = useState('');
 
     const addNewPost = (event) => {
         event.preventDefault();
-        console.log(title);
-        console.log(bodyInputRef.current.value)
+
+        const newPost = {
+            id: Date.now(),
+            title,
+            body,
+        }
+
+        setPosts(
+            [...posts, newPost]
+        );
+        setTitle('');
+        setBody('')
     }
 
     return (
         <div className="App">
             <form >
-                {/* Управляемый компонент */}
                 <MyInput
                     value={title}
                     onChange={event => setTitle(event.target.value)}
                     type="text"
                     placeholder='Название поста'
                 />
-                {/* Неуправляемый\Неконтролируемый компонент */}
                 <MyInput
-                    ref={bodyInputRef}
+                    value={body}
+                    onChange={event => setBody(event.target.value)}
                     type="text"
-                    placeholder='Описание поста'
+                    placeholder='Название поста'
                 />
                 <MyButton onClick={addNewPost}>
                     Добавить пост
